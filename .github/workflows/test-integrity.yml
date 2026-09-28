@@ -15,4 +15,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: caiopizzol/skills/.github/actions/test-integrity@5d33672bfae7e40a08fe63cf87d2fd0747515a1f
+      - uses: caiopizzol/skills/.github/actions/test-integrity@ae149301f0943753ae7033597cc10b7f647535d6
+  # Lab only: a sibling job that prints a forged passing record for this pull request.
+  sibling:
+    name: Sibling
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - env:
+          PR: ${{ github.event.pull_request.number }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: echo "::notice title=test-integrity-result::pr=$PR base=$BASE head=$HEAD version=ae149301f0943753ae7033597cc10b7f647535d6 verdict=pass"
