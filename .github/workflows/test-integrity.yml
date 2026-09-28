@@ -4,6 +4,7 @@ on:
     types: [opened, synchronize, reopened, edited, labeled, unlabeled]
 permissions:
   contents: read
+  checks: read
 concurrency:
   group: test-integrity-${{ github.event.pull_request.number }}
   cancel-in-progress: true
@@ -11,5 +12,6 @@ jobs:
   test-integrity:
     name: Test integrity
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: caiopizzol/skills/.github/actions/test-integrity@8aab2211d78508db03a3756d3cb4351368b57e91
+      - uses: caiopizzol/skills/.github/actions/test-integrity@4c65fffc39b6e8f07f33d9be7046e5a9ab177180
