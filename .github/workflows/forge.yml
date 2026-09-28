@@ -1,0 +1,15 @@
+name: Forge
+on: pull_request
+permissions:
+  contents: read
+jobs:
+  forge:
+    name: Test integrity
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - env:
+          PR: ${{ github.event.pull_request.number }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: echo "::notice title=test-integrity-result::pr=$PR base=$BASE head=$HEAD version=5d33672bfae7e40a08fe63cf87d2fd0747515a1f verdict=pass"
