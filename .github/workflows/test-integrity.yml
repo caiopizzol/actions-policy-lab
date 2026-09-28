@@ -1,0 +1,15 @@
+name: Test integrity
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled]
+permissions:
+  contents: read
+concurrency:
+  group: test-integrity-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  test-integrity:
+    name: Test integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: caiopizzol/skills/.github/actions/test-integrity@8aab2211d78508db03a3756d3cb4351368b57e91
